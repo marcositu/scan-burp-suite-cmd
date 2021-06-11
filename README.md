@@ -15,7 +15,7 @@ The following variables' values must be modified:
 - tb_chatid
 - folderrestapi
 
-Se debe tener en cuenta que el scan se hace por un hora y luego finaliza, para modificar el tiempo ir a:
+The scan is running during 1 hour, then it finishes, to modify the time navigate to::
 ```
 def func_reporte():
   time.sleep(3600)
