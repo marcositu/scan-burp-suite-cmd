@@ -22,8 +22,6 @@ def func_reporte():
 ```
 Bear in mind that it may be required to modify the API URL: http://127.0.0.1:8090
 
-Sorry about the code, I’m not good developing
-
 Example:
 
 ```
@@ -32,3 +30,5 @@ Example:
 
 <img src="https://i.ibb.co/rtpr0HJ/web.png" width="60%" height="60%">
 <img src="https://i.ibb.co/M5YQy9J/bot.jpg" width="60%" height="60%">
+
+Sorry about the code, I’m not good developing
