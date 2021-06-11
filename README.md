@@ -15,6 +15,20 @@ The following variables' values must be modified:
 - tb_chatid
 - folderrestapi
 
+Se debe tener en cuenta que el scan se hace por un hora y luego finaliza, para modificar el tiempo ir a:
+```
+def func_reporte():
+  time.sleep(3600)
+```
 Bear in mind that it may be required to modify the API URL: http://127.0.0.1:8090
 
 Sorry about the code, I’m not good developing
+
+Example:
+
+```
+# python3 scan-burp-suite-cmd.py domains.txt
+```
+
+<img src="https://i.ibb.co/rtpr0HJ/web.png" width="60%" height="60%">
+<img src="https://i.ibb.co/M5YQy9J/bot.jpg" width="60%" height="60%">
