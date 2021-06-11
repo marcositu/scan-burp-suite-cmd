@@ -131,4 +131,4 @@ if len(sys.argv)==2:
       func_inicio()
 
 else:
-   print ("Uso: " + sys.argv[0] + " domains.txt")
+   print ("Use: " + sys.argv[0] + " domains.txt")
