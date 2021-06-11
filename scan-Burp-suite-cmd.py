@@ -81,7 +81,7 @@ if len(sys.argv)==2:
          tb.send_message(f"{tb_chatid}", "Number of identified vulnerabilities: " + str(issues))
 
       def func_reporte():
-         time.sleep(100) #2 horas
+         time.sleep(3600) #1 hour
          print(f"\t[-] Downloading reports")
 
          reporte_url_xml = f"http://127.0.0.1:8090/burp/report?reportType=XML&urlPrefix={domain}"
