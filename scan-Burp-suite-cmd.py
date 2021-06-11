@@ -27,7 +27,7 @@ if len(sys.argv)==2:
    folderrestapi = "/home/user/scripts/burp/burp-rest-api/"
    
    print ("Initiating burp-rest-api.sh")
-   os.system(f'screen -A -m -d -S screen_burp_api {folderrestapi}burp-rest-api.sh') ·Use command SCREEN
+   os.system(f'screen -A -m -d -S screen_burp_api {folderrestapi}burp-rest-api.sh') #Use command SCREEN
 
    for line in lines:
       domain = line.strip()
