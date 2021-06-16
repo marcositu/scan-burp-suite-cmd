@@ -16,7 +16,7 @@ The following variables values must be modified:
 - folderrestapi
 
 
-The scan is running only 1 hour, after 1 hour the scan finishes. If you want to modify the duration time, navigate to::
+The scan is running only 1 hour, after 1 hour the scan finishes. If you want to modify the duration time, navigate to:
 ```
 def func_reporte():
   time.sleep(3600)
