@@ -1,6 +1,6 @@
 The propose of this script is scan using the burp-api-api for Burp Suite that will use target files.
 
-For the proper functioning it’s necessary the following tool: https://github.com/vmware/burp-rest-api 
+For the proper functioning it’s necessary the following tool: https://github.com/vmware/burp-rest-api and the command screen
 
 The procedure usage of the script is the following:
 - We use as an argument a file with the hosts.
