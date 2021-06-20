@@ -10,18 +10,11 @@ The procedure usage of the script is the following:
 - Once each scan is completed is sending the vulnerabilities identified.
 - When a scan is finished, an alert message is sent via Telegram specifying the host and the number of identified vulnerabilities
 
-The following variables values must be modified:
-- TOKEN
-- tb_chatid
-- folderrestapi
-
-
 The scan is running only 1 hour, after 1 hour the scan finishes. If you want to modify the duration time, navigate to:
 ```
 def func_reporte():
   time.sleep(3600)
 ```
-Bear in mind that it may be required to modify the API URL: http://127.0.0.1:8090
 
 Example:
 
