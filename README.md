@@ -28,8 +28,8 @@ Example:
 # python3 scan-burp-suite-cmd.py domains.txt
 ```
 
-<img src="https://i.ibb.co/YjScqC4/15.png" width="60%" height="60%">
-<img src="https://i.ibb.co/gFFY9Rj/16.png" width="60%" height="60%">
-<img src="https://i.ibb.co/2vQRcPN/17.png" width="60%" height="60%">
+<img src="https://i.ibb.co/YjScqC4/15.png" width="80%" height="80%">
+<img src="https://i.ibb.co/gFFY9Rj/16.png" width="80%" height="80%">
+<img src="https://i.ibb.co/2vQRcPN/17.png" width="80%" height="80%">
 
 Sorry about the code, I’m not good developing
