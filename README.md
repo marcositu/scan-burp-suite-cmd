@@ -1,6 +1,12 @@
 The propose of this script is scan using the burp-api-api for Burp Suite that will use target files.
 
-For the proper functioning it’s necessary the following tool: https://github.com/vmware/burp-rest-api and the command screen
+For the proper functioning it’s necessary the following tool: https://github.com/vmware/burp-rest-api and the command screen.
+
+The script reads the config.ini file where it is configured:
+- folderrestapi = Folder where burp-rest-api is located.
+- telegrambot = Here you must enter yes (to send notification via telegram) or no
+- token = Telegram token
+- chatid = Telegram chat id
 
 The procedure usage of the script is the following:
 - We use as an argument a file with the hosts.
