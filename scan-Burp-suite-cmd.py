@@ -39,7 +39,6 @@ if len(sys.argv)==2:
    for line in lines:
       domain = line.strip()
       con = sqlite3.connect("issuesburp.db")
-      #Nombre de la tabla vulns, columnas (name, host, path, location, confidence, severity)
       cur = con.cursor()
       dominio = urlparse(f"{domain}").netloc
       reporte = dominio
@@ -56,15 +55,15 @@ if len(sys.argv)==2:
          func_spider()
          func_scan()
          func_reporte()
-         issues = func_parserreporte()
-         
+         severityinfo, severitylow, severitymed, severityhigh = func_parserreporte()
+        
          try:
             telegramyes
             if telegramyes == "yes":
-               print ("estoy en yes")
-               func_telegram(issues)
+               func_telegram(severityinfo, severitylow, severitymed, severityhigh)
          except NameError:
-            os.system('screen -list | grep screen_burp_api | cut -d. -f1 | awk \'{print $1}\' | xargs kill')
+               telegramyes == None
+            
 
       def func_spider(): #Chequeo si finalizo el spider
          spiderPercentage = getSpiderPercentage()
@@ -88,14 +87,16 @@ if len(sys.argv)==2:
          response = session.post(f"http://127.0.0.1:8090/burp/scanner/scans/active?baseUrl={domain}", headers=headers)
 
 
-      def func_telegram(issues): #Inicio el SCAN ACTIVO
+      def func_telegram(severityinfo, severitylow, severitymed, severityhigh):
          print(f"\t[-] Scan finished. A Telegram message will be send")
-         tb.send_message(f"{tb_chatid}",f"Finished the URL scan for: {domain}") 
-         tb.send_message(f"{tb_chatid}", "Number of identified vulnerabilities: " + str(issues))
-         os.system('screen -list | grep screen_burp_api | cut -d. -f1 | awk \'{print $1}\' | xargs kill')
+         tb.send_message(f"{tb_chatid}", f"Finished the URL scan for: {domain}") 
+         tb.send_message(f"{tb_chatid}", f"Information: {severityinfo}")
+         tb.send_message(f"{tb_chatid}", f"Low: {severitylow}")
+         tb.send_message(f"{tb_chatid}", f"Medium: {severitymed}")
+         tb.send_message(f"{tb_chatid}", f"High: {severityhigh}")
 
       def func_reporte():
-         time.sleep(3600) #1 hour
+         time.sleep(60)
          print(f"\t[-] Downloading reports")
 
          reporte_url_xml = f"http://127.0.0.1:8090/burp/report?reportType=XML&urlPrefix={domain}"
@@ -116,7 +117,10 @@ if len(sys.argv)==2:
          DOMTree = xml.dom.minidom.parse(f"{reporte}.xml")
          issues = DOMTree.documentElement
          vulns = issues.getElementsByTagName("issue")
-         cont_issue = 0
+         severityinfo = 0
+         severitylow = 0
+         severitymed = 0
+         severityhigh = 0
          for issue in vulns:
             #print ("*****Issues*****")
             name = issue.getElementsByTagName('name')[0]
@@ -128,19 +132,36 @@ if len(sys.argv)==2:
             confidence = issue.getElementsByTagName('confidence')[0]
             #print ("Confidence: %s" % confidence.childNodes[0].data)
             severity = issue.getElementsByTagName('severity')[0]
+
             if len(issue.getElementsByTagName('request')) > 0:
                request = issue.getElementsByTagName('request')[0]
                requestStr = request.childNodes[0].data
                requestxt = base64.b64decode(requestStr).decode('ascii')
-               cont_issue += 1
 
             else:
                requestxt = ""              
             
+
+            if severity.childNodes[0].data == "Information":
+               severityinfo += 1
+
+            elif severity.childNodes[0].data == "Low":
+               severitylow += 1
+
+            elif severity.childNodes[0].data == "Medium":
+               severitymed += 1
+
+            elif severity.childNodes[0].data == "High":
+               severityhigh += 1
+
             con.execute("INSERT INTO vulns (name, host, path, confidence, severity, request) VALUES (?, ?, ?, ?, ?, ?)", (name.childNodes[0].data, host.childNodes[0].data, path.childNodes[0].data, confidence.childNodes[0].data, severity.childNodes[0].data, requestxt))
             con.commit()
-         print (f"\t\tNumber of identified vulnerabilities: {cont_issue}") 
-         return cont_issue
+
+         print (f"\t\tInformation: {severityinfo}")    
+         print (f"\t\tLow: {severitylow}")  
+         print (f"\t\tMedium: {severitymed}")  
+         print (f"\t\tHigh: {severityhigh}")  
+         return severityinfo, severitylow, severitymed, severityhigh
          
       func_inicio()
 
