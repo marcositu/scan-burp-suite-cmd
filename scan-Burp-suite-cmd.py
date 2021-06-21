@@ -14,20 +14,27 @@ import requests
 import sqlite3
 import base64
 from urllib.parse import urlparse
-import telebot
+import configparser
 
 if len(sys.argv)==2:
    archivo = sys.argv[1]
-   TOKEN = 'xxx' #telegam token
-   tb = telebot.TeleBot(TOKEN)
-   tb.get_me()
-   tb_chatid = "xxx" #telegram chatid
-   file1 = open(f"{archivo}", "r")
-   lines = file1.readlines()
-   folderrestapi = "/home/user/scripts/burp/burp-rest-api/"
+   config = configparser.ConfigParser()
+   config.read('config.ini')
+   folderrestapi = config['DEFAULT']['folderrestapi']
+   telegrambot = config['DEFAULT']['telegrambot']
+
+   if telegrambot.lower() == 'yes':
+      import telebot
+      TOKEN = config['telegram']['token']
+      tb = telebot.TeleBot(TOKEN)
+      tb.get_me()
+      tb_chatid = config['telegram']['chatid']
+      telegramyes = 'yes'
    
+   file1 = open(f"{archivo}", "r")
+   lines = file1.readlines()  
    print ("Initiating burp-rest-api.sh")
-   os.system(f'screen -A -m -d -S screen_burp_api {folderrestapi}burp-rest-api.sh') #Use command SCREEN
+   os.system(f'screen -A -m -d -S screen_burp_api {folderrestapi}burp-rest-api.sh')
 
    for line in lines:
       domain = line.strip()
@@ -50,8 +57,14 @@ if len(sys.argv)==2:
          func_scan()
          func_reporte()
          issues = func_parserreporte()
-         func_telegram(issues)
-
+         
+         try:
+            telegramyes
+            if telegramyes == "yes":
+               print ("estoy en yes")
+               func_telegram(issues)
+         except NameError:
+            os.system('screen -list | grep screen_burp_api | cut -d. -f1 | awk \'{print $1}\' | xargs kill')
 
       def func_spider(): #Chequeo si finalizo el spider
          spiderPercentage = getSpiderPercentage()
@@ -76,9 +89,10 @@ if len(sys.argv)==2:
 
 
       def func_telegram(issues): #Inicio el SCAN ACTIVO
-         print(f"\t[-] Scan finished. A Telegram message will be send.")
+         print(f"\t[-] Scan finished. A Telegram message will be send")
          tb.send_message(f"{tb_chatid}",f"Finished the URL scan for: {domain}") 
          tb.send_message(f"{tb_chatid}", "Number of identified vulnerabilities: " + str(issues))
+         os.system('screen -list | grep screen_burp_api | cut -d. -f1 | awk \'{print $1}\' | xargs kill')
 
       def func_reporte():
          time.sleep(3600) #1 hour
