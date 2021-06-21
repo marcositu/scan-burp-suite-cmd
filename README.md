@@ -1,4 +1,4 @@
-The propose of this script is scan using the burp-api-api for Burp Suite that will use target files.
+The propose of this script is scan using the burp-rest-api for Burp Suite that will use target files.
 
 For the proper functioning it’s necessary the following tool: https://github.com/vmware/burp-rest-api and command screen.
 
