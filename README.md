@@ -3,10 +3,11 @@ The propose of this script is scan using the burp-api-api for Burp Suite that wi
 For the proper functioning it’s necessary the following tool: https://github.com/vmware/burp-rest-api and the command screen.
 
 The script reads the config.ini file where it is configured:
-- folderrestapi = Folder where burp-rest-api is located.
+- folderrestapi = Folder where burp-rest-api is located (e.g. -> /home/user/burp-rest-api/)
 - telegrambot = Here you must enter yes (to send notification via telegram) or no
-- token = Telegram token
-- chatid = Telegram chat id
+- token = Telegram token (e.g. -> 123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11 )
+- chatid = Telegram chat id (e.g. -> 11111 )
+- downloadreport = Number of seconds to wait before cancelling the scan and downloading the report (eg -> 10)
 
 The procedure usage of the script is the following:
 - We use as an argument a file with the hosts.
