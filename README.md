@@ -27,6 +27,6 @@ Example:
 <img src="https://i.ibb.co/gFFY9Rj/16.png" width="80%" height="80%">
 <img src="https://i.ibb.co/2vQRcPN/17.png" width="80%" height="80%">
 
-For now it works only in Linux, we will provide support for Mac and Windows soon.
+By now it works only in Linux, we will provide support for Mac and Windows soon.
 
 Sorry about the code, I’m not good developing.
