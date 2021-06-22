@@ -88,13 +88,8 @@ if len(sys.argv)==2:
 
 
       def func_telegram(severityinfo, severitylow, severitymed, severityhigh):
-         print(f"\t[-] Scan finished. A Telegram message will be send")
-         tb.send_message(f"{tb_chatid}", f"Finished the URL scan for: {domain}") 
-         tb.send_message(f"{tb_chatid}", f"Information: {severityinfo}")
-         tb.send_message(f"{tb_chatid}", f"Low: {severitylow}")
-         tb.send_message(f"{tb_chatid}", f"Medium: {severitymed}")
-         tb.send_message(f"{tb_chatid}", f"High: {severityhigh}")
-
+         tb.send_message(f"{tb_chatid}", f"The following vulnerabilities have been found: *{domain}*\nInformation: {severityinfo}\nLow: {severitylow}\nMedium: {severitymed}\nHigh: {severityhigh}",  parse_mode= 'Markdown') 
+      
       def func_reporte():
          time.sleep(int(config['DEFAULT']['downloadreport']))
          print(f"\t[-] Downloading reports")
