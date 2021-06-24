@@ -56,8 +56,7 @@ if len(sys.argv)==2:
          func_scan()
          func_reporte()
          severityinfo, severitylow, severitymed, severityhigh = func_parserreporte()
-         os.system(f'screen -X -S screen_burp_api kill')
-        
+         
          try:
             telegramyes
             if telegramyes == "yes":
