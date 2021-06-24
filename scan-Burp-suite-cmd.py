@@ -34,7 +34,7 @@ if len(sys.argv)==2:
    file1 = open(f"{archivo}", "r")
    lines = file1.readlines()  
    print ("Initiating burp-rest-api.sh")
-   os.system(f'screen -A -m -d -S screen_burp_api {folderrestapi}burp-rest-api.sh')
+   os.system(f'screen -A -m -d -S screen_burp_api {folderrestapi}burp-rest-api.sh --config-file=paraburoproyect.json')
 
    for line in lines:
       domain = line.strip()
@@ -56,6 +56,7 @@ if len(sys.argv)==2:
          func_scan()
          func_reporte()
          severityinfo, severitylow, severitymed, severityhigh = func_parserreporte()
+         os.system(f'screen -X -S screen_burp_api kill')
         
          try:
             telegramyes
